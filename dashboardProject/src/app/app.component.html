@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="title">
+    <h1>My to-do List</h1>
+  </div>
+  <div class="content">
+    <div class="items" *ngFor="let item of toDoList; let i = index" >
+      <input type="checkbox" [checked]="item.status" (click)="select(i)" />
+      <p>{{item.value}}</p>
+      <svg style="margin-left: auto; margin-right: 5px" width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="abas(i)">
+        <path d="M1.65285 11.4286C1.65285 12.2143 2.36918 12.8571 3.24469 12.8571H9.61204C10.4875 12.8571 11.2039 12.2143 11.2039 11.4286V2.85714H1.65285V11.4286ZM11.9998 0.714286H9.21408L8.41816 0H4.43857L3.64265 0.714286H0.856934V2.14286H11.9998V0.714286Z" fill="#939CBD"/>
+      </svg>
+    </div>
+  </div>
+  <input type="text" class="inputText" placeholder="type here" [(ngModel)]="task" (keyup.enter)="addTask()">
+  <button class="deleteButton" (click)="deleteAll()">Delete all</button>
+</div>
+<router-outlet></router-outlet>
