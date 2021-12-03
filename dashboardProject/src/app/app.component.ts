@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UtilService } from './services/util.service';
 
 @Component({
   selector: 'app-root',
@@ -8,35 +9,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'dashboardProject';
 
+  constructor(private util: UtilService) { }
+
   public task: string = "";
-  public toDoList: Array<{value: string, status: boolean}> = [];
 
   public  addTask(){
-    let item = {value: this.task, status: false};
-    this.toDoList.push(item);
-    this.task = "";
+    this.util.addTask(this.task);
   }
 
   public deleteAll(){
-    this.toDoList = [];
-  }
-
-  public select(index: number){
-    if(this.toDoList[index].status == false){
-      let temporaryItem:{value: string, status: boolean} = this.toDoList[index];
-      temporaryItem.status = true;
-      this.toDoList.splice(index, 1);
-      this.toDoList.push(temporaryItem);
-    }else{
-      let temporaryItem:{value: string, status: boolean} = this.toDoList[index];
-      temporaryItem.status = false;
-      this.toDoList.splice(index, 1);
-      this.toDoList.unshift(temporaryItem);
-    }
-  }
-
-  public abas(index: number){
-    this.toDoList.splice(index, 1);
+    this.util.deleteAll();
   }
 
 }
