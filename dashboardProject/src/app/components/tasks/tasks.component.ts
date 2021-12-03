@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GetData } from 'src/app/interfaces/get-data';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -8,9 +9,12 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class TasksComponent implements OnInit {
 
+  public toDoList: Array<GetData> = [];
+
   constructor(private util: UtilService) { }
 
   ngOnInit(): void {
+    this.util.getList().subscribe((res) => this.toDoList = res)
   }
   
   public select(index: number){
@@ -21,7 +25,6 @@ export class TasksComponent implements OnInit {
      this.util.deleteOne(index);
    }
  
-   public toDoList: Array<{value: string, status: boolean}> = this.util.getList();
  
 
 }

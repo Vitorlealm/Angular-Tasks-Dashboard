@@ -1,13 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GetData } from '../interfaces/get-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  public toDoList: Array<{value: string, status: boolean}> = [];
+  public toDoList: Array<GetData> = [{value: "acordar", status: false}];
 
   public  addTask(task: string){
     let item = {value: task, status: false};
@@ -36,7 +39,8 @@ export class UtilService {
     this.toDoList.splice(index, 1);
   }
 
-  public getList(){
-    return this.toDoList;
+  public getList(): Observable<Array<GetData>>{
+  //  return this.toDoList;
+  return this.http.get<Array<GetData>>("http://localhost:3000/to-dos").pipe(res => res, error => error)
   }
 }
